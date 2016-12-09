@@ -1,28 +1,40 @@
 /*
-  Handles the OLED display objects
-*/
+ * Handles the OLED display objects
+ */
 
-Adafruit_SSD1306 OLEDScreen(4); //OLED_RESET
+#include "Arduino.h"
+#include "Pablo.h"
 
-void setupDisplay(){
+U8G2_SSD1306_128X64_NONAME_1_SW_I2C OLEDScreen(U8G2_R0, /* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
+
+// See Fonts available here:
+// https://github.com/olikraus/u8g2/wiki/fntlistall 
+
+void Pablo::setupDisplay(){
   // Initialise the OLED display
   // Note: it is necessary to change a value in the Adafruit_SSD1306 library to set the screen size to 128x64
-  OLEDScreen.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  OLEDScreen.clearDisplay();
+  OLEDScreen.begin();
 
-  // Set some default values for writing to the OLED screen
-  OLEDScreen.setTextColor(WHITE);
+  OLEDScreen.firstPage();
+  do {
+    OLEDScreen.setFont(u8g2_font_fub25_tr);
+    OLEDScreen.drawStr(18,35,"Pablo");
 
-  // Write "ARTBOT" in big
-  OLEDScreen.setTextSize(3);
-  OLEDScreen.setCursor(20, 10); // this moves our cursor right back to the top left pixel.. we should talk about this.
-  OLEDScreen.print("PABLO"); //this copies some text to the screens memory
+    OLEDScreen.setFont(u8g2_font_etl14thai_t);
+    OLEDScreen.drawStr(35,55,"Hello :)");
+
+  } while ( OLEDScreen.nextPage() );
+
+  /*
 
   // Write "Hello" in small
   OLEDScreen.setTextSize(2);
   OLEDScreen.setCursor(20, 45);
   OLEDScreen.print("Hello :)"); //this copies some text to the screens memory
   OLEDScreen.display();
+  */
+
+  delay(100000);
 }
 
 /*
@@ -31,7 +43,8 @@ void setupDisplay(){
  *
  */
 
-void report() {
+void Pablo::report() {
+  /*
   OLEDScreen.clearDisplay();
 
   OLEDScreen.setTextSize(1);
@@ -73,33 +86,40 @@ void report() {
   }
 
   OLEDScreen.display();
+  */
 }
 
-void message(String text) {
+void Pablo::message(String text) {
+  /*
   OLEDScreen.clearDisplay();
   OLEDScreen.setTextSize(1);
   OLEDScreen.setCursor(20, 20);
   OLEDScreen.print(text); //this copies some text to the screens memory
   OLEDScreen.display();
+  */
 }
 
-void messageLarge(String text) {
+void Pablo::messageLarge(String text) {
+  /*
   OLEDScreen.clearDisplay();
   OLEDScreen.setTextSize(2);
   OLEDScreen.setCursor(20, 20);
   OLEDScreen.print(text); //this copies some text to the screens memory
   OLEDScreen.display();
+  */
 }
 
-void message(int text) {
+void Pablo::message(int text) {
+  /*
   OLEDScreen.clearDisplay();
   OLEDScreen.setTextSize(1);
   OLEDScreen.setCursor(20, 20);
   OLEDScreen.print(text); //this copies some text to the screens memory
   OLEDScreen.display();
+  */
 }
 
-void displayStartMessage() {
+void Pablo::displayStartMessage() {
   displayCountDown(3);
   delay(1000);
   displayCountDown(2);
@@ -107,6 +127,7 @@ void displayStartMessage() {
   displayCountDown(1);
   delay(1000);
 
+  /*
   OLEDScreen.clearDisplay();
   OLEDScreen.setTextSize(4);
   OLEDScreen.setCursor(40, 20);
@@ -125,9 +146,11 @@ void displayStartMessage() {
   OLEDScreen.print(setting_right_wheel_distance); //this copies some text to the screens memory
 
   OLEDScreen.display();
+  */
 }
 
-void displayCountDown(int count) {
+void Pablo::displayCountDown(int count) {
+  /*
   OLEDScreen.clearDisplay();
   OLEDScreen.setTextSize(2);
   OLEDScreen.setCursor(10 , 5);
@@ -141,6 +164,7 @@ void displayCountDown(int count) {
   OLEDScreen.setCursor(94 , 30);
   OLEDScreen.print(count); //this copies some text to the screens memory
   OLEDScreen.display();
+  */
 }
 
 

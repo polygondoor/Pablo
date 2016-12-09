@@ -2,7 +2,10 @@
   Handles the rotary controller
 */
 
-void setupRotaryEncoder(){
+#include "Arduino.h"
+#include "Pablo.h"
+
+void Pablo::setupRotaryEncoder(){
   pinMode(rotaryEncoder1_set_clkPin, INPUT); // clk
   pinMode(rotaryEncoder1_set_dtPin, INPUT); // dt
   pinMode(rotaryEncoder1_set_btnPin, INPUT_PULLUP); // btn
@@ -11,7 +14,7 @@ void setupRotaryEncoder(){
 /*
  * This method reads all the rotary encoders
  */
-void readRotaryEncoders() {
+void Pablo::readRotaryEncoders() {
   rotaryEncoder1_read_clkPin = digitalRead(rotaryEncoder1_set_clkPin); // orange cable, CLK
   rotaryEncoder1_read_dtPin = digitalRead(rotaryEncoder1_set_dtPin);
 
@@ -59,7 +62,7 @@ void readRotaryEncoders() {
   rotaryEncoder1_previousRead_clkPin = rotaryEncoder1_read_clkPin; // Don’t forget this
 }
 
-void cycleRotaryIncrement(){
+void Pablo::cycleRotaryIncrement(){
   if (rotary_increment == 1) {
     rotary_increment = 10;
   }

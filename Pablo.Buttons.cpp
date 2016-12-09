@@ -2,7 +2,10 @@
   Handles the array of buttons
 */
 
-void setupButtons(){
+#include "Arduino.h"
+#include "Pablo.h"
+
+void Pablo::setupButtons(){
   // TODO: These pinModes need to be abstracted to variables
   // OR they should be clearly marked.
   pinMode(buttonIncThousands, INPUT_PULLUP);
