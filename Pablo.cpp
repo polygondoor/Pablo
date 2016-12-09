@@ -55,6 +55,7 @@ bool Pablo::waitForStartButton(){
 
 
 void Pablo::readModeButton(){
+  
   if ( digitalRead(buttonDrawingMode) == LOW ) {
     // mode button pressed
 
@@ -70,6 +71,7 @@ void Pablo::readModeButton(){
     // mode button unpressed, 
     buttonDrawingMode_state = 0;
   }
+  
 }
 
 
