@@ -15,7 +15,7 @@ class Pablo
 {
   public:
     Pablo();
-    void setup();
+    void init();
     void run();
     
     void turn_wheels_mm(float left, float right);

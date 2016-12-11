@@ -6,7 +6,7 @@ Pablo::Pablo()
 
 }
 
-void Pablo::setup(){
+void Pablo::init(){
 
   // sort out pinmodes for the motor driver
   pinMode(2, OUTPUT);
