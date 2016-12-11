@@ -40,16 +40,18 @@ void Pablo::run(){
     default_mode();
   } 
   
-  // if we switch to mode 1 (custom mode), then we go back to the Arduino loop...
-  // report();
-  
 }
 
 /*
  * Waits for start button to be pressed
  */
 bool Pablo::waitForStartButton(){
-  return (digitalRead(buttonStart) == HIGH);
+
+  while ( digitalRead(buttonStart) == HIGH ) {
+    delay(100);
+  }
+
+  return true;
 }
 
 void Pablo::readModeButton(){
