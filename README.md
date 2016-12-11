@@ -1,6 +1,12 @@
-## Synopsis
+## Pablo: A drawing machine for media artists
 
-Pablo is an Arduino based drawing machine. This library allows the user to drive Pablo by manipulating a hardware UI interface, but also to write code in the Arduino software development environment, that will then be executed on the drawing machine.
+Pablo is an Arduino based drawing machine that has been designed for two purposes:
+- to empower anyone who wishes to explore the aesthetic potential of computational drawing
+- as a pedagogical platform to expose students to media, programming, hardware hacking, and aesthetics.
+
+This library allows the user to drive Pablo by manipulating a hardware user interface (UI), but also to write code in the Arduino software development environment that can then drive the drawing machine.
+
+The hardware UI has been designed to offer very a minimum of controls that offer a maximum of differrent patterns.
 
 ## Code Example
 
@@ -20,42 +26,46 @@ void setup() {
 void loop() {
   pablo.run();
 
-  // Displays a message on Artbot's little screen
+  // Display a message and wait for start button
   pablo.message("  Press Start");
-
-  // Wait for the start button to be pressed
   pablo.waitForStartButton();
 
-  // Turn both wheels in the same directiom
-  pablo.turn_wheels_mm(100, 100);
-
-  pablo.message(" Fin!");
-  delay(5000);
+  // Turn the left wheel 50mm, and the right wheel 100mm (this creates an arc)
+  pablo.turn_wheels_mm(50, 100);
 
 }
 ```
 
-
 ## Motivation
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+Pablo's design is intended to empower anyone interested in crossing the line between computational logic and aesthetics.
 
 ## Installation
 
-Provide code examples and explanations of how to get the project.
+Pablo can be installed using Arduino's library manager.
+
+Alternatively, it can be downloaded and placed in the Arduino 'libraries' folder.
 
 ## API Reference
 
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
+`turn_wheels_mm(float distance_left_wheel, float distance_right_wheel);`
 
-## Tests
-
-Describe and show how to run the tests with code examples.
 
 ## Contributors
 
-Let people know how they can dive into the project, include important links to things like issue trackers, irc, twitter accounts if applicable.
+Pablo is developed by Polygon Door, a creative media laboratory based in Australia.
 
 ## License
 
-A short snippet describing the license (MIT, Apache, etc.)
+This software is Copyright (C) 2016 Polygon Door. Use is subject to license
+conditions. The main licensing options available are GPL V2 or Commercial:
+
+Open Source Licensing GPL V2
+This is the appropriate option if you want to share the source code of your
+application with everyone you distribute it to, and you also want to give them
+the right to share who uses it. If you wish to use this software under Open
+Source Licensing, you must contribute all your source code to the open source
+community in accordance with the GPL Version 2 when your application is
+distributed. See http://www.gnu.org/copyleft/gpl.html
+
+Note: Pablo incorporates AccelStepper, Copyright (C) 2010 Mike McCauley
