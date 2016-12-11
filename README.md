@@ -57,8 +57,8 @@ Pablo is developed by Polygon Door, a creative media laboratory based in Austral
 
 ## License
 
-This software is Copyright (C) 2016 Polygon Door. Use is subject to license
-conditions. The main licensing options available are GPL V2 or Commercial:
+This software is Copyright (C) 2016 Polygon Door.
+Use is subject to license conditions. The main licensing option available is GPL V2.
 
 Open Source Licensing GPL V2
 This is the appropriate option if you want to share the source code of your
