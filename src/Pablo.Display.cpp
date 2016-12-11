@@ -99,11 +99,8 @@ void Pablo::messageLarge(String text) {
 
 void Pablo::message(int text) {
 
-  OLEDScreen -> clearBuffer();
-  OLEDScreen -> setFont(u8g2_font_profont12_mf);
   sprintf (buf, "%d", text);
-  OLEDScreen -> drawStr(30,30, buf); //this copies some text to the screens memory
-  OLEDScreen -> sendBuffer();
+  message(buf);
 
 }
 
@@ -114,45 +111,22 @@ void Pablo::displayStartMessage() {
   delay(1000);
   displayCountDown(1);
   delay(1000);
-
-  /*
-  OLEDScreen.clearDisplay();
-  OLEDScreen.setTextSize(4);
-  OLEDScreen.setCursor(40, 20);
-  OLEDScreen.print(":)"); //this copies some text to the screens memory
-
-  OLEDScreen.setTextSize(1);
-  OLEDScreen.setCursor(0, 0);
-  OLEDScreen.print(setting_left_wheel_speed); //this copies some text to the screens memory
-  OLEDScreen.setCursor(110, 0);
-  OLEDScreen.print(setting_right_wheel_speed); //this copies some text to the screens memory
-
-  OLEDScreen.setCursor(0, 50);
-  OLEDScreen.print(setting_left_wheel_distance); //this copies some text to the screens memory
-
-  OLEDScreen.setCursor(110, 50);
-  OLEDScreen.print(setting_right_wheel_distance); //this copies some text to the screens memory
-
-  OLEDScreen.display();
-  */
 }
 
 void Pablo::displayCountDown(int count) {
-  /*
-  OLEDScreen.clearDisplay();
-  OLEDScreen.setTextSize(2);
-  OLEDScreen.setCursor(10 , 5);
-  OLEDScreen.print("STEP BACK");
 
-  OLEDScreen.setTextSize(1);
-  OLEDScreen.setCursor(10 , 40);
-  OLEDScreen.print("Starting in: "); //this copies some text to the screens memory
+  OLEDScreen -> clearBuffer();
+  OLEDScreen -> setFont(u8g2_font_crox5h_tf);
+  OLEDScreen -> drawStr(5 , 25, "Step back!");
 
-  OLEDScreen.setTextSize(4);
-  OLEDScreen.setCursor(94 , 30);
-  OLEDScreen.print(count); //this copies some text to the screens memory
-  OLEDScreen.display();
-  */
+  OLEDScreen -> setFont(u8g2_font_etl14thai_t);
+  OLEDScreen -> drawStr(8 , 60, "Starting in: ");
+
+  OLEDScreen -> setFont(u8g2_font_fub25_tr);
+  sprintf (buf, "%d", count);
+  OLEDScreen -> drawStr(96 , 60, buf);
+
+  OLEDScreen -> sendBuffer();
 }
 
 
