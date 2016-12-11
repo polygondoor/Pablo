@@ -3,10 +3,11 @@
 
 // #include "PabloPresets.h"
 // Include libraries for the stepper motors
-#include "AccelStepper.h"
+#include "PabloAccelStepper.h"
 
 // Include libraries for drawing to the OLED screen
 #include <U8g2lib.h>
+#include <U8x8lib.h>
 #include <SPI.h>
 #include <Wire.h>
 
@@ -51,8 +52,8 @@ class Pablo
 
   	/* OBJECTS */
   	// Stepper motor things
-  	AccelStepper * stepper_r;
-	AccelStepper * stepper_l;
+  	PabloAccelStepper * stepper_r;
+	PabloAccelStepper * stepper_l;
 
 	/* VARIABLES */
 	// Allows knowing if the steppers are currently activated or just waiting.

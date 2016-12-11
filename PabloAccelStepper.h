@@ -226,8 +226,8 @@
 // Copyright (C) 2009-2013 Mike McCauley
 // $Id: AccelStepper.h,v 1.24 2015/10/04 05:16:38 mikem Exp mikem $
 
-#ifndef AccelStepper_h
-#define AccelStepper_h
+#ifndef PabloAccelStepper_h
+#define PabloAccelStepper_h
 
 #include <stdlib.h>
 #if ARDUINO >= 100
@@ -281,7 +281,7 @@
 /// whenever required for the speed set.
 /// Calling setAcceleration() is expensive,
 /// since it requires a square root to be calculated.
-class AccelStepper
+class PabloAccelStepper
 {
 public:
     /// \brief Symbolic names for number of pins.
@@ -328,7 +328,7 @@ public:
     /// to pin 5.
     /// \param[in] enable If this is true (the default), enableOutputs() will be called to enable
     /// the output pins at construction time.
-    AccelStepper(uint8_t interface = AccelStepper::FULL4WIRE, uint8_t pin1 = 2, uint8_t pin2 = 3, uint8_t pin3 = 4, uint8_t pin4 = 5, bool enable = true);
+    PabloAccelStepper(uint8_t interface = PabloAccelStepper::FULL4WIRE, uint8_t pin1 = 2, uint8_t pin2 = 3, uint8_t pin3 = 4, uint8_t pin4 = 5, bool enable = true);
 
     /// Alternate Constructor which will call your own functions for forward and backward steps. 
     /// You can have multiple simultaneous steppers, all moving
@@ -338,7 +338,7 @@ public:
     /// Any motor initialization should happen before hand, no pins are used or initialized.
     /// \param[in] forward void-returning procedure that will make a forward step
     /// \param[in] backward void-returning procedure that will make a backward step
-    AccelStepper(void (*forward)(), void (*backward)());
+    PabloAccelStepper(void (*forward)(), void (*backward)());
     
     /// Set the target position. The run() function will try to move the motor (at most one step per call)
     /// from the current position to the target position set by the most

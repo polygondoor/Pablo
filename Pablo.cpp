@@ -1,13 +1,11 @@
 #include "Arduino.h"
 #include "Pablo.h"
 
-
 Pablo::Pablo()
 {
   // Initialise Stepper motors
-  stepper_r = new AccelStepper(AccelStepper::FULL4WIRE, 7, 12, 8, 13);
-  stepper_l = new AccelStepper(AccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
-
+  stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
+  stepper_l = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
 }
 
 void Pablo::setup(){
@@ -37,6 +35,11 @@ void Pablo::setup(){
 }
 
 void Pablo::run(){
+
+  while (true){
+    readRotaryEncoders();
+  }
+
   // check which mode we are
   if (drawingMode == 0) {
     default_mode();
@@ -52,7 +55,6 @@ void Pablo::run(){
 bool Pablo::waitForStartButton(){
   return (digitalRead(buttonStart) == HIGH);
 }
-
 
 void Pablo::readModeButton(){
   
@@ -73,5 +75,4 @@ void Pablo::readModeButton(){
   }
   
 }
-
 
