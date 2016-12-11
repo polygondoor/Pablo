@@ -7,7 +7,6 @@
 
 // Include libraries for drawing to the OLED screen
 #include <U8g2lib.h>
-#include <U8x8lib.h>
 #include <SPI.h>
 #include <Wire.h>
 
