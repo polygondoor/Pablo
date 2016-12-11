@@ -36,6 +36,8 @@ class Pablo
   	/* FUNCTIONS */
   	void setupButtons();
   	void setupDisplay();
+  	void setupMotors();
+  	
   	void report();
   	void displayStartMessage();
   	void displayCountDown(int number);
@@ -54,6 +56,7 @@ class Pablo
   	// Stepper motor things
   	PabloAccelStepper * stepper_r;
 	PabloAccelStepper * stepper_l;
+	U8G2_SSD1306_128X64_NONAME_F_HW_I2C * OLEDScreen;
 
 	/* VARIABLES */
 	// Allows knowing if the steppers are currently activated or just waiting.

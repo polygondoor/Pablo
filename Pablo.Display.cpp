@@ -5,24 +5,24 @@
 #include "Arduino.h"
 #include "Pablo.h"
 
-U8G2_SSD1306_128X64_NONAME_F_HW_I2C OLEDScreen(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
-
 // See Fonts available here:
 // https://github.com/olikraus/u8g2/wiki/fntlistall 
 
 void Pablo::setupDisplay(){
 
+  OLEDScreen = new U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
+
   // Initialise the OLED display
-  OLEDScreen.begin();
+  OLEDScreen -> begin();
 
-  OLEDScreen.clearBuffer();
+  OLEDScreen -> clearBuffer();
 
-  OLEDScreen.setFont(u8g2_font_fub25_tr);
-  OLEDScreen.drawStr(18,35,"Pablo");
-  OLEDScreen.setFont(u8g2_font_etl14thai_t);
-  OLEDScreen.drawStr(35,55,"Hello :)");
+  OLEDScreen -> setFont(u8g2_font_fub25_tr);
+  OLEDScreen -> drawStr(18,35,"Pablo");
+  OLEDScreen -> setFont(u8g2_font_etl14thai_t);
+  OLEDScreen -> drawStr(35,55,"Hello :)");
 
-  OLEDScreen.sendBuffer();
+  OLEDScreen -> sendBuffer();
 
   delay(1000);
 
@@ -36,43 +36,43 @@ void Pablo::setupDisplay(){
 char buf[4];
 void Pablo::report() {
 
-  OLEDScreen.clearBuffer();
+  OLEDScreen -> clearBuffer();
 
-  OLEDScreen.setFont(u8g2_font_profont12_mf);
+  OLEDScreen -> setFont(u8g2_font_profont12_mf);
 
-  OLEDScreen.drawStr(36,10,"< speed >");
-  OLEDScreen.drawStr(39,38,"/ dist \\");
-  OLEDScreen.drawStr(50,48,"+");
+  OLEDScreen -> drawStr(36,10,"< speed >");
+  OLEDScreen -> drawStr(39,38,"/ dist \\");
+  OLEDScreen -> drawStr(50,48,"+");
 
   sprintf (buf, "%d", rotary_increment);
-  OLEDScreen.drawStr(55,18, buf );
+  OLEDScreen -> drawStr(55,18, buf );
 
-  OLEDScreen.setFont(u8g2_font_courB12_tn);
+  OLEDScreen -> setFont(u8g2_font_courB12_tn);
   
   sprintf (buf, "%d", setting_right_wheel_distance);
-  OLEDScreen.drawStr(66, 56, buf) ;
+  OLEDScreen -> drawStr(66, 56, buf) ;
   sprintf (buf, "%d", setting_right_wheel_speed);
-  OLEDScreen.drawStr(103, 13, buf) ;
+  OLEDScreen -> drawStr(103, 13, buf) ;
   sprintf (buf, "%d", setting_left_wheel_speed);
-  OLEDScreen.drawStr(3, 13, buf) ;
+  OLEDScreen -> drawStr(3, 13, buf) ;
   sprintf (buf, "%d", setting_left_wheel_distance);
-  OLEDScreen.drawStr(3, 56, buf) ;
+  OLEDScreen  -> drawStr(3, 56, buf) ;
 
   // mat working on mouse over for 1 encoder
   if (rotaryMode == 0) {
-    OLEDScreen.drawFrame(64, 43, 63, 20);
+    OLEDScreen  -> drawFrame(64, 43, 63, 20);
 
   } else if (rotaryMode == 1) {
-    OLEDScreen.drawFrame(100,0, 28, 20);
+    OLEDScreen  -> drawFrame(100,0, 28, 20);
 
   } else if (rotaryMode == 2) {
-    OLEDScreen.drawFrame(0,0,28,20);
+    OLEDScreen  -> drawFrame(0,0,28,20);
 
   } else if (rotaryMode == 3) {
-    OLEDScreen.drawFrame(0, 43 , 63, 20);
+    OLEDScreen  -> drawFrame(0, 43 , 63, 20);
   }
 
-  OLEDScreen.sendBuffer();
+  OLEDScreen  -> sendBuffer();
 }
 
 void Pablo::message(String text) {

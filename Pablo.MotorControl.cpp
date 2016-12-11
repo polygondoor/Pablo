@@ -25,6 +25,12 @@ float topSpeed = 400;
 // register the number of steps by processing the captured settings
 long steps = 0;
 
+void Pablo::setupMotors(){
+    // Initialise Stepper motors
+  stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
+  stepper_l = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
+}
+
 /*
  * This method captures all the knob settings
  * and gives them to the steppers.

@@ -3,9 +3,7 @@
 
 Pablo::Pablo()
 {
-  // Initialise Stepper motors
-  stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
-  stepper_l = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
+  
 }
 
 void Pablo::setup(){
@@ -29,6 +27,7 @@ void Pablo::setup(){
   digitalWrite(10, HIGH);
   digitalWrite(11, HIGH);
 
+  setupMotors();  
   setupDisplay();  
   setupRotaryEncoder();
   setupButtons();
