@@ -3,7 +3,7 @@
 
 Pablo::Pablo()
 {
-  
+
 }
 
 void Pablo::setup(){
@@ -35,17 +35,14 @@ void Pablo::setup(){
 
 void Pablo::run(){
 
-  while (true){
-    readRotaryEncoders();
-  }
-
-  // check which mode we are
-  if (drawingMode == 0) {
+  // stay here as long as we are not in custom mode
+  while ( drawingMode == 0 ) {
     default_mode();
-  } else if ( drawingMode == 1) {
-    report(); // this ensures that the screen re-displays what is going on in default mode
-  }
-
+  } 
+  
+  // if we switch to mode 1 (custom mode), then we go back to the Arduino loop...
+  // report();
+  
 }
 
 /*

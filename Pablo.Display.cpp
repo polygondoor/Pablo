@@ -33,30 +33,32 @@ void Pablo::setupDisplay(){
  *  SCREEN HANDLING
  *
  */
-char buf[4];
+char buf[20];
 void Pablo::report() {
 
   OLEDScreen -> clearBuffer();
 
-  OLEDScreen -> setFont(u8g2_font_profont12_mf);
+  OLEDScreen -> setFont(u8g2_font_6x12_tr);
 
   OLEDScreen -> drawStr(36,10,"< speed >");
-  OLEDScreen -> drawStr(39,38,"/ dist \\");
-  OLEDScreen -> drawStr(50,48,"+");
-
+  OLEDScreen -> drawStr(38,28,"  dist  ");
+  OLEDScreen -> drawStr(39,38,"/      \\");
+  
+  OLEDScreen -> setFont(u8g2_font_profont10_mf);
+  OLEDScreen -> drawStr(50,38,"+");
   sprintf (buf, "%d", rotary_increment);
-  OLEDScreen -> drawStr(55,18, buf );
+  OLEDScreen -> drawStr(55,38, buf );
 
-  OLEDScreen -> setFont(u8g2_font_courB12_tn);
+  OLEDScreen -> setFont(u8g2_font_profont22_mn);
   
   sprintf (buf, "%d", setting_right_wheel_distance);
-  OLEDScreen -> drawStr(66, 56, buf) ;
+  OLEDScreen -> drawStr(66, 60, buf) ;
   sprintf (buf, "%d", setting_right_wheel_speed);
-  OLEDScreen -> drawStr(103, 13, buf) ;
+  OLEDScreen -> drawStr(103, 17, buf) ;
   sprintf (buf, "%d", setting_left_wheel_speed);
-  OLEDScreen -> drawStr(3, 13, buf) ;
+  OLEDScreen -> drawStr(3, 17, buf) ;
   sprintf (buf, "%d", setting_left_wheel_distance);
-  OLEDScreen  -> drawStr(3, 56, buf) ;
+  OLEDScreen  -> drawStr(3, 60, buf) ;
 
   // mat working on mouse over for 1 encoder
   if (rotaryMode == 0) {
@@ -72,37 +74,37 @@ void Pablo::report() {
     OLEDScreen  -> drawFrame(0, 43 , 63, 20);
   }
 
-  OLEDScreen  -> sendBuffer();
+  OLEDScreen -> sendBuffer();
 }
 
 void Pablo::message(String text) {
-  /*
-  OLEDScreen.clearDisplay();
-  OLEDScreen.setTextSize(1);
-  OLEDScreen.setCursor(20, 20);
-  OLEDScreen.print(text); //this copies some text to the screens memory
-  OLEDScreen.display();
-  */
+
+  OLEDScreen -> clearBuffer();
+  OLEDScreen -> setFont(u8g2_font_profont12_mf);
+  text.toCharArray(buf, 20);
+  OLEDScreen -> drawStr(20,30, buf); //this copies some text to the screens memory
+  OLEDScreen -> sendBuffer();
+
 }
 
 void Pablo::messageLarge(String text) {
-  /*
-  OLEDScreen.clearDisplay();
-  OLEDScreen.setTextSize(2);
-  OLEDScreen.setCursor(20, 20);
-  OLEDScreen.print(text); //this copies some text to the screens memory
-  OLEDScreen.display();
-  */
+ 
+  OLEDScreen -> clearBuffer();
+  OLEDScreen -> setFont(u8g2_font_fub25_tr);
+  text.toCharArray(buf, 20);
+  OLEDScreen -> drawStr(10, 40, buf); //this copies some text to the screens memory
+  OLEDScreen -> sendBuffer();
+
 }
 
 void Pablo::message(int text) {
-  /*
-  OLEDScreen.clearDisplay();
-  OLEDScreen.setTextSize(1);
-  OLEDScreen.setCursor(20, 20);
-  OLEDScreen.print(text); //this copies some text to the screens memory
-  OLEDScreen.display();
-  */
+
+  OLEDScreen -> clearBuffer();
+  OLEDScreen -> setFont(u8g2_font_profont12_mf);
+  sprintf (buf, "%d", text);
+  OLEDScreen -> drawStr(30,30, buf); //this copies some text to the screens memory
+  OLEDScreen -> sendBuffer();
+
 }
 
 void Pablo::displayStartMessage() {

@@ -32,12 +32,15 @@ class Pablo
     void message(int number);
     void messageLarge(String);
 
+    // current index of drawingMode
+	int drawingMode = 0;
+
   private:
   	/* FUNCTIONS */
   	void setupButtons();
   	void setupDisplay();
   	void setupMotors();
-  	
+
   	void report();
   	void displayStartMessage();
   	void displayCountDown(int number);
@@ -107,8 +110,6 @@ class Pablo
 	int rotaryMode = 0;
 	// holds the increment amount that the rotary controller uses
 	int rotary_increment = 1;
-	// current index of drawingMode
-	int drawingMode = 0;
 	// current index of preset array
 	int preset_index = -1;
 };
