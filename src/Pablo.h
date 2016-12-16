@@ -85,14 +85,14 @@ class Pablo
 
 	// button pin positions
 	int buttonIncThousands= 22;		// K0: 22
-	int buttonIncHundreds = 23;		// K1: 23
-	int buttonIncTens     = 24;		// K2: 24
-	int buttonIncOnes	  = 25;	 	// K3: 25
+	int buttonIncHundreds = 24;		// K1: 23
+	int buttonIncTens     = 26;		// K2: 24
+	int buttonIncOnes	  = 28;	 	// K3: 25
 
-	int buttonDrawingMode = 26;		// K4: 26
-	int buttonUnused = 27;			// K5: 27
-	int buttonPresets = 28;			// K6: 28
-	int buttonStart = 29;			// K7: 29
+	int buttonDrawingMode = 30;		// K4: 26
+	int buttonUnused = 32;			// K5: 27
+	int buttonPresets = 34;			// K6: 28
+	int buttonStart = 36;			// K7: 29
 
 	// toggle button states
 	int buttonDrawingMode_state = 0;
