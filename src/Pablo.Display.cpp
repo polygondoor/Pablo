@@ -33,7 +33,7 @@ void Pablo::setupDisplay(){
  *  SCREEN HANDLING
  *
  */
-char buf[20];
+char pablos_buf[20];
 void Pablo::report() {
 
   OLEDScreen -> clearBuffer();
@@ -46,19 +46,19 @@ void Pablo::report() {
   
   OLEDScreen -> setFont(u8g2_font_profont10_mf);
   OLEDScreen -> drawStr(50,38,"+");
-  sprintf (buf, "%d", rotary_increment);
-  OLEDScreen -> drawStr(55,38, buf );
+  sprintf (pablos_buf, "%d", rotary_increment);
+  OLEDScreen -> drawStr(55,38, pablos_buf );
 
   OLEDScreen -> setFont(u8g2_font_profont22_mn);
   
-  sprintf (buf, "%d", setting_right_wheel_distance);
-  OLEDScreen -> drawStr(66, 60, buf) ;
-  sprintf (buf, "%d", setting_right_wheel_speed);
-  OLEDScreen -> drawStr(103, 17, buf) ;
-  sprintf (buf, "%d", setting_left_wheel_speed);
-  OLEDScreen -> drawStr(3, 17, buf) ;
-  sprintf (buf, "%d", setting_left_wheel_distance);
-  OLEDScreen  -> drawStr(3, 60, buf) ;
+  sprintf (pablos_buf, "%Ld", setting_right_wheel_distance);
+  OLEDScreen -> drawStr(66, 60, pablos_buf) ;
+  sprintf (pablos_buf, "%d", setting_right_wheel_speed);
+  OLEDScreen -> drawStr(103, 17, pablos_buf) ;
+  sprintf (pablos_buf, "%d", setting_left_wheel_speed);
+  OLEDScreen -> drawStr(3, 17, pablos_buf) ;
+  sprintf (pablos_buf, "%Ld", setting_left_wheel_distance);
+  OLEDScreen  -> drawStr(3, 60, pablos_buf) ;
 
   // mat working on mouse over for 1 encoder
   if (rotaryMode == 0) {
@@ -81,8 +81,8 @@ void Pablo::message(String text) {
 
   OLEDScreen -> clearBuffer();
   OLEDScreen -> setFont(u8g2_font_profont12_mf);
-  text.toCharArray(buf, 20);
-  OLEDScreen -> drawStr(20,30, buf); //this copies some text to the screens memory
+  text.toCharArray(pablos_buf, 20);
+  OLEDScreen -> drawStr(20,30, pablos_buf); //this copies some text to the screens memory
   OLEDScreen -> sendBuffer();
 
 }
@@ -91,16 +91,16 @@ void Pablo::messageLarge(String text) {
  
   OLEDScreen -> clearBuffer();
   OLEDScreen -> setFont(u8g2_font_fub25_tr);
-  text.toCharArray(buf, 20);
-  OLEDScreen -> drawStr(10, 40, buf); //this copies some text to the screens memory
+  text.toCharArray(pablos_buf, 20);
+  OLEDScreen -> drawStr(10, 40, pablos_buf); //this copies some text to the screens memory
   OLEDScreen -> sendBuffer();
 
 }
 
 void Pablo::message(int text) {
 
-  sprintf (buf, "%d", text);
-  message(buf);
+  sprintf (pablos_buf, "%d", text);
+  message(pablos_buf);
 
 }
 
@@ -123,8 +123,8 @@ void Pablo::displayCountDown(int count) {
   OLEDScreen -> drawStr(8 , 60, "Starting in: ");
 
   OLEDScreen -> setFont(u8g2_font_fub25_tr);
-  sprintf (buf, "%d", count);
-  OLEDScreen -> drawStr(96 , 60, buf);
+  sprintf (pablos_buf, "%d", count);
+  OLEDScreen -> drawStr(96 , 60, pablos_buf);
 
   OLEDScreen -> sendBuffer();
 }
