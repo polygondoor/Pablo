@@ -5,6 +5,8 @@
 #include "Arduino.h"
 #include "Pablo.h"
 
+int maxSpeedSetting = 40;
+
 void Pablo::setupRotaryEncoder(){
   pinMode(rotaryEncoder1_set_clkPin, INPUT); // clk
   pinMode(rotaryEncoder1_set_dtPin, INPUT); // dt
@@ -29,11 +31,11 @@ void Pablo::readRotaryEncoders() {
       }
       else if (rotaryMode == 1) {
         setting_right_wheel_speed += 1;
-        if (setting_right_wheel_speed > 50) setting_right_wheel_speed = 50;
+        if (setting_right_wheel_speed > maxSpeedSetting) setting_right_wheel_speed = maxSpeedSetting;
       }
       else if (rotaryMode == 2) {
         setting_left_wheel_speed += 1;
-        if (setting_left_wheel_speed > 50) setting_left_wheel_speed = 50;
+        if (setting_left_wheel_speed > maxSpeedSetting) setting_left_wheel_speed = maxSpeedSetting;
       }
       else {
         setting_left_wheel_distance += rotary_increment;

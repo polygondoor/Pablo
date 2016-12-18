@@ -533,7 +533,7 @@ void PabloAccelStepper::step8(long step)
             break;
     }
 }
-    
+
 // Prevents power consumption on the outputs
 void    PabloAccelStepper::disableOutputs()
 {   

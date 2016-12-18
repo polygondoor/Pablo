@@ -6,6 +6,10 @@ Pablo::Pablo()
 
 }
 
+Pablo::Pablo(int motorShieldVersion){
+  
+}
+
 void Pablo::init(){
 
   // sort out pinmodes for the motor driver
