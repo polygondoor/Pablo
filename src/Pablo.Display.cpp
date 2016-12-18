@@ -57,13 +57,13 @@ void Pablo::report() {
 
   OLEDScreen -> setFont(u8g2_font_profont22_mn);
   
-  sprintf (pablos_buf, "%lu", setting_right_wheel_distance);
+  sprintf (pablos_buf, "%ld", setting_right_wheel_distance);
   OLEDScreen -> drawStr(66, 60, pablos_buf) ;
   sprintf (pablos_buf, "%d", setting_right_wheel_speed);
   OLEDScreen -> drawStr(103, 17, pablos_buf) ;
   sprintf (pablos_buf, "%d", setting_left_wheel_speed);
   OLEDScreen -> drawStr(3, 17, pablos_buf) ;
-  sprintf (pablos_buf, "%lu", setting_left_wheel_distance);
+  sprintf (pablos_buf, "%ld", setting_left_wheel_distance);
   OLEDScreen  -> drawStr(3, 60, pablos_buf) ;
 
   // mat working on mouse over for 1 encoder
