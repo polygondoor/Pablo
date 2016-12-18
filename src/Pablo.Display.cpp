@@ -10,9 +10,13 @@
 
 void Pablo::setupDisplay(){
 
-  OLEDScreen = new U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
-  // Use this to turn screen upside down
-  // OLEDScreen = new U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R2, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display
+  if (_pabloVersion == PABLO_V2 ) {
+    // turn screen upside down
+    OLEDScreen = new U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R2, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display    
+  } else {
+    // screen up same way as writing on screen
+    OLEDScreen = new U8G2_SSD1306_128X64_NONAME_F_HW_I2C(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);   // All Boards without Reset of the Display  
+  }
 
   // Initialise the OLED display
   OLEDScreen -> begin();

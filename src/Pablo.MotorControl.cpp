@@ -5,7 +5,7 @@
 #include "Arduino.h"
 #include "Pablo.h"
 
-#include <AFMotor.h> // TESTING AFMOTOR
+#include <AFMotor.h>
 
 // steps per revolution
 // int stepsPerRev = 2048;
@@ -47,17 +47,16 @@ static void backwardstep2() {
 }
 
 void Pablo::setupMotors(){
-  // Initialise Stepper motors
-  // stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
-  // stepper_l = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
 
-  //motor1 = new AF_Stepper(2048, 1); // TESTING AFMOTOR
-  //motor2 = new AF_Stepper(2048, 2); // TESTING AFMOTOR
-
-  // Declare the AccelStepper motors (which 'wrap' the AFMotor lib motors)
-  stepper_r = new PabloAccelStepper( forwardstep1, backwardstep1); // TESTING AFMOTOR
-  stepper_l = new PabloAccelStepper( forwardstep2, backwardstep2); // TESTING AFMOTOR
-  // stepper_l = new PabloAccelStepper( [this](){ forwardstep2(); },  [this](){ backwardstep2(); }); // TESTING AFMOTOR
+  if (_pabloVersion == PABLO_V2 ) {
+    // Initialise Stepper motors
+    stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
+    stepper_l = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
+  } else {
+      // Declare the AccelStepper motors (which 'wrap' the AFMotor lib motors)
+    stepper_r = new PabloAccelStepper( forwardstep1, backwardstep1); 
+    stepper_l = new PabloAccelStepper( forwardstep2, backwardstep2); 
+  }
 
 }
 

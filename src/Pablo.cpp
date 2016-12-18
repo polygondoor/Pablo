@@ -3,11 +3,11 @@
 
 Pablo::Pablo()
 {
-
+  _pabloVersion = PABLO_V1;
 }
 
-Pablo::Pablo(int motorShieldVersion){
-  
+Pablo::Pablo(int pabloVersion){
+  _pabloVersion = pabloVersion;
 }
 
 void Pablo::init(){

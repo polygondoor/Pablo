@@ -12,6 +12,9 @@
 #include <SPI.h>
 #include <Wire.h>
 
+#define PABLO_V1 1
+#define PABLO_V2 2
+
 class Pablo
 {
   public:
@@ -67,6 +70,8 @@ class Pablo
 	/* VARIABLES */
 	// Allows knowing if the steppers are currently activated or just waiting.
 	boolean isDrawing = false;
+
+	int _pabloVersion;
 
 	long pablo_presets [10][4] = { 
 		{1048, 40, 22, 203}, // start let centre, florette big.
