@@ -47,15 +47,19 @@ void Pablo::readRotaryEncoders() {
       // DECREMENT
       if (rotaryMode == 0) {
         setting_right_wheel_distance -= rotary_increment;
+        if (setting_right_wheel_distance < -99999) setting_right_wheel_distance = -99999;
       }
       else if (rotaryMode == 1) {
         setting_right_wheel_speed -= 1;
+        if (setting_right_wheel_speed < 0) setting_right_wheel_speed = 0;
       }
       else if (rotaryMode == 2) {
         setting_left_wheel_speed -= 1;
+        if (setting_left_wheel_speed < 0 ) setting_left_wheel_speed = 0;
       }
       else {
         setting_left_wheel_distance -= rotary_increment;
+        if (setting_left_wheel_distance < -99999) setting_left_wheel_distance = -99999;
       }
       report();
     }
