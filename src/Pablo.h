@@ -37,6 +37,11 @@ class Pablo
     void message(int number);
     void messageLarge(String);
 
+    /* OBJECTS */
+  	// Stepper motors 
+  	PabloAccelStepper * stepper_r;
+	PabloAccelStepper * stepper_l;
+
     // current index of drawingMode
 	int drawingMode = 0;
 
@@ -61,10 +66,6 @@ class Pablo
   	void default_mode();
 
   	/* OBJECTS */
-  	// Stepper motor things
-  	PabloAccelStepper * stepper_r;
-	PabloAccelStepper * stepper_l;
-
 	U8G2_SSD1306_128X64_NONAME_F_HW_I2C * OLEDScreen;
 
 	/* VARIABLES */
