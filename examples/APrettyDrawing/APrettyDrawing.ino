@@ -18,8 +18,8 @@ void loop() {
   pablo.waitForStartButton();
 
   pablo.message(" A Seed Head! ");
-  // Start drawing
-  for (int i = 0; i < 50; i++) {
+  // The below code gets called 20 times ... each time, the 3 lines get shorter.
+  for (int i = 0; i < 20; i++) {
     // arc
     pablo.turn_wheels_mm(d/2, d);
     pablo.turn_wheels_mm(-d/2, -d);
@@ -33,7 +33,7 @@ void loop() {
     pablo.turn_wheels_mm(-d, -d/2);
 
     // rotate a bit
-    pablo.turn_wheels_mm(-20, 20);
+    pablo.turn_wheels_mm(-40, 40);
 
     // reduce length of stem
     d = d * 0.98;
