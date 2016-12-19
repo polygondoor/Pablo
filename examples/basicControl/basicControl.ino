@@ -13,7 +13,7 @@ void loop() {
   pablo.message("  Press Start");
   pablo.waitForStartButton();
 
-  pablo.message(" Drawing! ");
+  pablo.message(" An Arc! ");
   // Turn the left wheel 50mm, and the right wheel 100mm
   pablo.turn_wheels_mm(50, 100);
 
