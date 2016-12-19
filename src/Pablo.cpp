@@ -51,9 +51,17 @@ void Pablo::run(){
  */
 bool Pablo::waitForStartButton(){
 
+  // dis-engage the motors;
+  stepper_l -> disableOutputs();
+  stepper_r -> disableOutputs();
+
   while ( digitalRead(buttonStart) == HIGH ) {
     delay(100);
   }
+
+  // engage the motors;
+  stepper_l -> enableOutputs();
+  stepper_r -> enableOutputs();
 
   return true;
 }
