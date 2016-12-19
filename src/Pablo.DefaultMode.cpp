@@ -51,6 +51,11 @@ void Pablo::default_mode(){
     // Push to start
     if (digitalRead(buttonStart) == LOW) {
       isDrawing = true;
+
+      // engage the motors
+      stepper_l -> enableOutputs();
+      stepper_r -> enableOutputs();
+      
       displayStartMessage();
       captureSettings();
       report();

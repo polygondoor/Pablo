@@ -58,6 +58,10 @@ void Pablo::setupMotors(){
     stepper_l = new PabloAccelStepper( forwardstep2, backwardstep2); 
   }
 
+  // Make sure that the motors are not enabled to start
+  stepper_l -> disableOutputs();
+  stepper_r -> disableOutputs();
+
 }
 
 /*
@@ -99,9 +103,16 @@ void Pablo::turn_wheels_mm(float distance_l, float distance_r){
   turn_wheels_mm( distance_l, distance_r, topSpeed);
 }
 
+/*
+ * This is the main function where custom code is executed.
+ */
 void Pablo::turn_wheels_mm(float distance_l, float distance_r, float top_speed){
 
   set_wheels_mm(distance_l, distance_r, top_speed);
+
+  // Engage motors
+  stepper_l -> enableOutputs();
+  stepper_r -> enableOutputs();
 
   // Could make the check "> 1" so that the infinitesimal stop is not perceivable
   while(stepper_l -> distanceToGo() != 0 || stepper_r -> distanceToGo() != 0){
@@ -112,6 +123,10 @@ void Pablo::turn_wheels_mm(float distance_l, float distance_r, float top_speed){
   // reset the steppers to position 0
   stepper_r -> setCurrentPosition(0);
   stepper_l -> setCurrentPosition(0);
+
+  // Disengage motors
+  stepper_l -> disableOutputs();
+  stepper_r -> disableOutputs();
 }
 
 /*
@@ -129,9 +144,9 @@ void Pablo::set_wheels_mm(float distance_l, float distance_r,  float top_speed) 
 
   // translate distance into steps
   stepper_l -> setMaxSpeed(speed_l);
-  stepper_l -> setAcceleration(100);
+  stepper_l -> setAcceleration(6000);
   stepper_r -> setMaxSpeed(speed_r);
-  stepper_r -> setAcceleration(100);
+  stepper_r -> setAcceleration(6000);
 
   stepper_l -> moveTo(distanceToSteps(distance_l));
   stepper_r -> moveTo(distanceToSteps(distance_r));
@@ -178,7 +193,7 @@ void Pablo::stopAndResetSteppers() {
   stepper_l -> setAcceleration(200);
   stepper_r -> setAcceleration(200);
 
-  // leep going until everything has stopper
+  // keep going until everything has stopper
   while(stepper_l -> distanceToGo() > 0 || stepper_r -> distanceToGo() > 0){
     stepper_l -> run();
     stepper_r -> run();
@@ -187,6 +202,9 @@ void Pablo::stopAndResetSteppers() {
   // reset the steppers to position 0
   stepper_r -> setCurrentPosition(0);
   stepper_l -> setCurrentPosition(0);
+
+  stepper_l -> disableOutputs();
+  stepper_r -> disableOutputs();
 
   // tell the system that we are no longer drawing
   isDrawing = false;
