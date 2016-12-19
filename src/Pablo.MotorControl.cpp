@@ -110,10 +110,6 @@ void Pablo::turn_wheels_mm(float distance_l, float distance_r, float top_speed){
 
   set_wheels_mm(distance_l, distance_r, top_speed);
 
-  // Engage motors
-  //stepper_l -> enableOutputs();
-  //stepper_r -> enableOutputs();
-
   // Could make the check "> 1" so that the infinitesimal stop is not perceivable
   while(stepper_l -> distanceToGo() != 0 || stepper_r -> distanceToGo() != 0){
     stepper_l -> run();
@@ -123,10 +119,7 @@ void Pablo::turn_wheels_mm(float distance_l, float distance_r, float top_speed){
   // reset the steppers to position 0
   stepper_r -> setCurrentPosition(0);
   stepper_l -> setCurrentPosition(0);
-
-  // Disengage motors
-  //stepper_l -> disableOutputs();
-  //stepper_r -> disableOutputs();
+  
 }
 
 /*
