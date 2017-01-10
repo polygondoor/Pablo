@@ -22,7 +22,11 @@ float maxSpeedRight = 400;
 float accelerationRight = 100;
 
 // float 
-float topSpeed = 400;
+float topSpeed = 500; // around 500 is good for sudden starts and stop
+float accelerationForCustomMode = 100000; // use 100000 for no stop
+
+// float
+float minmumPulseWidth = 15;
 
 // register the number of steps by processing the captured settings
 long steps = 0;
@@ -52,6 +56,10 @@ void Pablo::setupMotors(){
     // Initialise Stepper motors
     stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
     stepper_l = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
+
+    stepper_r -> setMinPulseWidth(minmumPulseWidth);
+    stepper_l -> setMinPulseWidth(minmumPulseWidth);
+
   } else {
       // Declare the AccelStepper motors (which 'wrap' the AFMotor lib motors)
     stepper_r = new PabloAccelStepper( forwardstep1, backwardstep1); 
@@ -137,9 +145,9 @@ void Pablo::set_wheels_mm(float distance_l, float distance_r,  float top_speed) 
 
   // translate distance into steps
   stepper_l -> setMaxSpeed(speed_l);
-  stepper_l -> setAcceleration(100000);
+  stepper_l -> setAcceleration(accelerationForCustomMode);
   stepper_r -> setMaxSpeed(speed_r);
-  stepper_r -> setAcceleration(100000);
+  stepper_r -> setAcceleration(accelerationForCustomMode);
 
   stepper_l -> moveTo(distanceToSteps(distance_l));
   stepper_r -> moveTo(distanceToSteps(distance_r));

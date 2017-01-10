@@ -21,6 +21,8 @@ class Pablo
     Pablo();
     Pablo(int motorShieldVersion);
     void init();
+    void init(String botName, String botMessage);
+    void init(String botName);
     void run();
     
     void turn_wheels_mm(float left, float right);
@@ -69,6 +71,8 @@ class Pablo
 	U8G2_SSD1306_128X64_NONAME_F_HW_I2C * OLEDScreen;
 
 	/* VARIABLES */
+	String _botName = "Pablo";
+	String _botMessage = "Hello :)";
 	// Allows knowing if the steppers are currently activated or just waiting.
 	boolean isDrawing = false;
 

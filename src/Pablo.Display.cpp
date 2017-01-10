@@ -8,6 +8,10 @@
 // See Fonts available here:
 // https://github.com/olikraus/u8g2/wiki/fntlistall 
 
+// Buffer for holding messages as Char array
+char pablos_buf[40];
+int stringLength;
+
 void Pablo::setupDisplay(){
 
   if (_pabloVersion == PABLO_V2 ) {
@@ -20,14 +24,23 @@ void Pablo::setupDisplay(){
 
   // Initialise the OLED display
   OLEDScreen -> begin();
-
   OLEDScreen -> clearBuffer();
 
+  // Draw large Pable name
   OLEDScreen -> setFont(u8g2_font_fub25_tr);
-  OLEDScreen -> drawStr(18,35,"Pablo");
-  OLEDScreen -> setFont(u8g2_font_etl14thai_t);
-  OLEDScreen -> drawStr(35,55,"Hello :)");
+  _botName.toCharArray(pablos_buf, 40);
+  stringLength = _botName.length();
+  // work out indent of text string (centre it) and print out
+  OLEDScreen -> drawStr( (124 - (stringLength * 16 )) / 2 , 35, pablos_buf);
 
+  // Draw small Pablo message
+  OLEDScreen -> setFont(u8g2_font_etl14thai_t);
+  _botMessage.toCharArray(pablos_buf, 40);
+  // work out indent of text string (centre it) and print out
+  stringLength = _botMessage.length();
+  OLEDScreen -> drawStr( (126 - (stringLength * 7 )) / 2  , 55, pablos_buf);
+
+  // send to screen
   OLEDScreen -> sendBuffer();
 
   delay(1000);
@@ -39,7 +52,6 @@ void Pablo::setupDisplay(){
  *  SCREEN HANDLING
  *
  */
-char pablos_buf[20];
 void Pablo::report() {
 
   OLEDScreen -> clearBuffer();

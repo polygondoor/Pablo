@@ -10,6 +10,17 @@ Pablo::Pablo(int pabloVersion){
   _pabloVersion = pabloVersion;
 }
 
+void Pablo::init(String botName, String botMessage){
+  _botMessage = botMessage;
+  _botName = botName;
+  init();
+}
+
+void Pablo::init(String botName){
+  _botName = botName;
+  init();
+}
+
 void Pablo::init(){
 
   // sort out pinmodes for the motor driver
