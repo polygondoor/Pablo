@@ -31,7 +31,7 @@ void Pablo::setupDisplay(){
   _botName.toCharArray(pablos_buf, 40);
   stringLength = _botName.length();
   // work out indent of text string (centre it) and print out
-  OLEDScreen -> drawStr( (124 - (stringLength * 16 )) / 2 , 35, pablos_buf);
+  OLEDScreen -> drawStr( (122 - (stringLength * 17 )) / 2 , 35, pablos_buf);
 
   // Draw small Pablo message
   OLEDScreen -> setFont(u8g2_font_etl14thai_t);
