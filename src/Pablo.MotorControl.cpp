@@ -67,13 +67,13 @@ void Pablo::setupMotors(){
     stepper_l = new PabloAccelStepper( forwardstep2, backwardstep2); 
   }
 
-  // Make sure that the motors are not enabled to start
-  stepper_l -> disableOutputs();
-  stepper_r -> disableOutputs();
-
   // by default, set a litt acceleration to avoid bunny hopping.
   stepper_l -> setAcceleration(aLittleAcceleration);
   stepper_r -> setAcceleration(aLittleAcceleration);
+
+  // Make sure that the motors are not enabled to start
+  stepper_l -> disableOutputs();
+  stepper_r -> disableOutputs();
 
 }
 
@@ -172,9 +172,9 @@ void Pablo::set_wheels_mm(float distance_l, float distance_r,  float top_speed) 
   } else {
     // apply acceleration
     // Which ever is the furthest distance will have the greatest speed
-    biggest_distance = (distance_l > distance_r) ? distance_l : distance_r;
-    stepper_l -> setAcceleration((distance_l / biggest_distance) * aLittleAcceleration);
-    stepper_r -> setAcceleration((distance_r / biggest_distance) * aLittleAcceleration);
+    biggest_distance = (abs(distance_l) > abs(distance_r)) ? abs(distance_l) : abs(distance_r);
+    stepper_l -> setAcceleration((abs(distance_l) / abs(biggest_distance)) * aLittleAcceleration);
+    stepper_r -> setAcceleration((abs(distance_r) / abs(biggest_distance)) * aLittleAcceleration);
   }
 
   // translate distance into steps
