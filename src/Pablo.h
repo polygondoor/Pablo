@@ -15,6 +15,11 @@
 #define PABLO_V1 1
 #define PABLO_V2 2
 
+#define MOVEMENT_STILL 		0
+#define MOVEMENT_FORWARDS 	1
+#define MOVEMENT_ROTATING 	2
+#define MOVEMENT_BACKWARDS 	3
+
 class Pablo
 {
   public:
@@ -73,6 +78,12 @@ class Pablo
 	/* VARIABLES */
 	String _botName = "Pablo";
 	String _botMessage = "Hello :)";
+
+	// Forward or backward motion of the Artbot
+	// Allows knowing whether acceletaration should be applied or not
+	// 1 is forwards, 0 is backwards, 2 is twisting.
+	int movement_direction = MOVEMENT_STILL;
+
 	// Allows knowing if the steppers are currently activated or just waiting.
 	boolean isDrawing = false;
 
@@ -84,11 +95,11 @@ class Pablo
 		{2100, 37, 22, 190}, // big sprawling, sta bottom middle
 		{99999, 35, 20, 236},	 // big florette?
 		{719, 40, 5, 314},
-		{3200, 9, 77, 99999},
-		{809, 6, 77, 45},
-		{190, 34, 77, 40},
+		{3200, 9, 30, 99999},
+		{809, 6, 35, 45},
+		{190, 34, 35, 40},
 		{45, 2, 15, 40},
-		{1534, 9, 77, 40}
+		{1534, 9, 32, 40}
 	};
 
 	// These are settings captured by the UI settings
@@ -97,30 +108,18 @@ class Pablo
 	long setting_left_wheel_speed = 35;		// in mm
 	long setting_left_wheel_distance = 100;	// arbitrary scale
 
-	/*  // SUGGESTED CHANGES TO POLYCARB PABLO
-	// button pin positions
-	int buttonIncThousands= 22;		// K0: 22
-	int buttonIncHundreds = 24;		// K1: 23
-	int buttonIncTens     = 26;		// K2: 24
-	int buttonIncOnes	  = 28;	 	// K3: 25
-
-	int buttonDrawingMode = 30;		// K4: 26
-	int buttonUnused = 32;			// K5: 27
-	int buttonPresets = 34;			// K6: 28
-	int buttonStart = 36;			// K7: 29
-	*/
-
-	// button pin positions
-	int buttonIncThousands= 22;		// K0: 22
+	// Button pin positions.
+	// Note: these are changed in init() ... as a function of whether or not
+	// we are doing an old (AF_motor bot) or a new bot
+	int buttonIncThousands;		// K0: 22
 	int buttonIncHundreds = 23;		// K1: 23
 	int buttonIncTens     = 24;		// K2: 24
 	int buttonIncOnes	  = 25;	 	// K3: 25
 
-	int buttonDrawingMode = 26;		// K4: 26
+	int buttonDrawingMode = 29;		// K4: 26
 	int buttonUnused = 27;			// K5: 27
 	int buttonPresets = 28;			// K6: 28
-	int buttonStart = 29;			// K7: 29
-
+	int buttonStart = 26;			// K7: 29
 
 	// toggle button states
 	int buttonDrawingMode_state = 0;

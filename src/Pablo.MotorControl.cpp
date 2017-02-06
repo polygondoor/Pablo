@@ -23,7 +23,8 @@ float accelerationRight = 100;
 
 // float 
 float topSpeed = 500; // around 500 is good for sudden starts and stop
-float accelerationForCustomMode = 100000; // use 100000 for no stop
+float noVisibleAcceleration = 100000; // use 100000 for no stop
+float aLittleAcceleration = 800 ;
 
 // float
 float minmumPulseWidth = 15;
@@ -69,6 +70,10 @@ void Pablo::setupMotors(){
   // Make sure that the motors are not enabled to start
   stepper_l -> disableOutputs();
   stepper_r -> disableOutputs();
+
+  // by default, set a litt acceleration to avoid bunny hopping.
+  stepper_l -> setAcceleration(aLittleAcceleration);
+  stepper_r -> setAcceleration(aLittleAcceleration);
 
 }
 
@@ -131,8 +136,12 @@ void Pablo::turn_wheels_mm(float distance_l, float distance_r, float top_speed){
 }
 
 /*
- * Sets the wheels to turn without turning them
+ * Sets the target position of wheels, without starting motion
+ * All calls that move the wheels call this method.
+ * 
  */
+int old_movement_direction;
+float biggest_distance;
 void Pablo::set_wheels_mm(float distance_l, float distance_r,  float top_speed) {
   // calculate if there is a differential in the speeds
   if (abs(distance_l) >= abs(distance_r) ) {
@@ -143,14 +152,38 @@ void Pablo::set_wheels_mm(float distance_l, float distance_r,  float top_speed) 
     speed_l = top_speed * ((float)abs(distance_l) / (float)abs(distance_r));
   }
 
+  // work out if there is a change in direction
+  old_movement_direction = movement_direction;
+  if (distance_l > 0 && distance_r > 0){
+    movement_direction = MOVEMENT_FORWARDS;
+  } else if (distance_l < 0 && distance_r < 0) {
+    movement_direction = MOVEMENT_BACKWARDS;
+  } else {
+    movement_direction = MOVEMENT_ROTATING;
+  }
+
+  // Do NOT APPLY acceleration if:
+  // - the bot keeps going in same direction 
+  // - the bot is rotating
+  if ( old_movement_direction == movement_direction ) {
+    // no acceleration required
+    stepper_l -> setAcceleration(noVisibleAcceleration);
+    stepper_r -> setAcceleration(noVisibleAcceleration); 
+  } else {
+    // apply acceleration
+    // Which ever is the furthest distance will have the greatest speed
+    biggest_distance = (distance_l > distance_r) ? distance_l : distance_r;
+    stepper_l -> setAcceleration((distance_l / biggest_distance) * aLittleAcceleration);
+    stepper_r -> setAcceleration((distance_r / biggest_distance) * aLittleAcceleration);
+  }
+
   // translate distance into steps
   stepper_l -> setMaxSpeed(speed_l);
-  stepper_l -> setAcceleration(accelerationForCustomMode);
   stepper_r -> setMaxSpeed(speed_r);
-  stepper_r -> setAcceleration(accelerationForCustomMode);
 
   stepper_l -> moveTo(distanceToSteps(distance_l));
   stepper_r -> moveTo(distanceToSteps(distance_r));
+
 }
 
 void Pablo::set_wheels_mm(float distance_l, float distance_r){
