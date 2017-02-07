@@ -51,26 +51,6 @@ void Pablo::init(){
 
   }
 
-
-  // sort out pinmodes for the motor driver
-  pinMode(2,  OUTPUT);
-  pinMode(3,  OUTPUT);
-  pinMode(4,  OUTPUT);
-  pinMode(5,  OUTPUT);
-  pinMode(6,  OUTPUT);
-  pinMode(7,  OUTPUT);
-  pinMode(8,  OUTPUT);
-  pinMode(9,  OUTPUT);
-  pinMode(10, OUTPUT);
-  pinMode(11, OUTPUT);
-  pinMode(12, OUTPUT);
-  pinMode(13, OUTPUT);
-
-  digitalWrite(6,  HIGH);
-  digitalWrite(9,  HIGH);
-  digitalWrite(10, HIGH);
-  digitalWrite(11, HIGH);
-
   setupMotors();
   setupDisplay();
   setupRotaryEncoder();
@@ -93,16 +73,14 @@ void Pablo::run(){
 bool Pablo::waitForStartButton(){
 
   // dis-engage the motors;
-  stepper_l -> disableOutputs();
-  stepper_r -> disableOutputs();
+  disablePowerToMotors();
 
   while ( digitalRead(buttonStart) == HIGH ) {
     delay(100);
   }
 
   // engage the motors;
-  stepper_l -> enableOutputs();
-  stepper_r -> enableOutputs();
+  enablePowerToMotors();
 
   return true;
 }

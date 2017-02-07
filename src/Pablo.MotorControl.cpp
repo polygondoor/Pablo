@@ -53,6 +53,20 @@ static void backwardstep2() {
 
 void Pablo::setupMotors(){
 
+  // sort out pinmodes for the motor driver
+  pinMode(2,  OUTPUT);
+  pinMode(3,  OUTPUT);
+  pinMode(4,  OUTPUT);
+  pinMode(5,  OUTPUT);
+  pinMode(6,  OUTPUT);
+  pinMode(7,  OUTPUT);
+  pinMode(8,  OUTPUT);
+  pinMode(9,  OUTPUT);
+  pinMode(10, OUTPUT);
+  pinMode(11, OUTPUT);
+  pinMode(12, OUTPUT);
+  pinMode(13, OUTPUT);
+
   if (_pabloVersion == PABLO_V2 ) {
     // Initialise Stepper motors
     stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
@@ -72,8 +86,7 @@ void Pablo::setupMotors(){
   stepper_r -> setAcceleration(aLittleAcceleration);
 
   // Make sure that the motors are not enabled to start
-  stepper_l -> disableOutputs();
-  stepper_r -> disableOutputs();
+  disablePowerToMotors();
 
 }
 
@@ -152,6 +165,7 @@ void Pablo::set_wheels_mm(float distance_l, float distance_r,  float top_speed) 
     speed_l = top_speed * ((float)abs(distance_l) / (float)abs(distance_r));
   }
 
+  /*
   // work out if there is a change in direction
   old_movement_direction = movement_direction;
   if (distance_l > 0 && distance_r > 0){
@@ -176,11 +190,17 @@ void Pablo::set_wheels_mm(float distance_l, float distance_r,  float top_speed) 
     stepper_l -> setAcceleration((abs(distance_l) / abs(biggest_distance)) * aLittleAcceleration);
     stepper_r -> setAcceleration((abs(distance_r) / abs(biggest_distance)) * aLittleAcceleration);
   }
+  */
 
-  // translate distance into steps
+  // everything accelerates always
+  biggest_distance = (abs(distance_l) > abs(distance_r)) ? abs(distance_l) : abs(distance_r);
+  stepper_l -> setAcceleration((abs(distance_l) / abs(biggest_distance)) * aLittleAcceleration);
+  stepper_r -> setAcceleration((abs(distance_r) / abs(biggest_distance)) * aLittleAcceleration);
+  
   stepper_l -> setMaxSpeed(speed_l);
   stepper_r -> setMaxSpeed(speed_r);
 
+  // translate distance into steps
   stepper_l -> moveTo(distanceToSteps(distance_l));
   stepper_r -> moveTo(distanceToSteps(distance_r));
 
@@ -215,6 +235,24 @@ long Pablo::distanceToSteps(float mm) {
   return (long)(mm * stepsPerRev / (wheelDiam * 3.1416));
 }
 
+void Pablo::enablePowerToMotors(){
+  digitalWrite(6,  HIGH);
+  digitalWrite(9,  HIGH);
+  digitalWrite(10, HIGH);
+  digitalWrite(11, HIGH);
+  stepper_l -> enableOutputs();
+  stepper_r -> enableOutputs();
+}
+
+void Pablo::disablePowerToMotors(){
+  digitalWrite(6,  LOW);
+  digitalWrite(9,  LOW);
+  digitalWrite(10, LOW);
+  digitalWrite(11, LOW);
+  stepper_l -> disableOutputs();
+  stepper_r -> disableOutputs();
+}
+
 /*
  * Utility to stop steppers, and set them back to a 0 position
  */
@@ -237,8 +275,7 @@ void Pablo::stopAndResetSteppers() {
   stepper_r -> setCurrentPosition(0);
   stepper_l -> setCurrentPosition(0);
 
-  stepper_l -> disableOutputs();
-  stepper_r -> disableOutputs();
+  disablePowerToMotors();
 
   // tell the system that we are no longer drawing
   isDrawing = false;

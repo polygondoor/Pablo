@@ -53,8 +53,7 @@ void Pablo::default_mode(){
       isDrawing = true;
 
       // engage the motors
-      stepper_l -> enableOutputs();
-      stepper_r -> enableOutputs();
+      enablePowerToMotors();
       
       displayStartMessage();
       captureSettings();

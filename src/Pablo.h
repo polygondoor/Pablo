@@ -57,6 +57,8 @@ class Pablo
   	void setupButtons();
   	void setupDisplay();
   	void setupMotors();
+  	void enablePowerToMotors();
+  	void disablePowerToMotors();
 
   	void report();
   	void displayStartMessage();
