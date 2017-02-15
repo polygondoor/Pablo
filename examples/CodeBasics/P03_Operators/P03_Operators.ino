@@ -1,6 +1,6 @@
 #include <Pablo.h>
 
-Pablo pablo;
+Pablo pablo(PABLO_V2); //for version 1 3d chassis change V2 to V1
 
 void setup() {
   pablo.init();
