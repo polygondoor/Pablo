@@ -11,6 +11,10 @@
 // int stepsPerRev = 2048;
 int stepsPerRev = 2048;
 
+// used to flip direction of motors so that all bots move forwards
+// irresective of their design
+int motorDirection = 1; 
+
 // wheel diameter of robot
 float wheelDiam = 79;
 
@@ -32,8 +36,8 @@ float minmumPulseWidth = 15;
 // register the number of steps by processing the captured settings
 long steps = 0;
 
-AF_Stepper pablo_motor1(2048, 1); // TESTING AFMOTOR
-AF_Stepper pablo_motor2(2048, 2); // TESTING AFMOTOR
+AF_Stepper pablo_motor1(stepsPerRev, 1); // TESTING AFMOTOR
+AF_Stepper pablo_motor2(stepsPerRev, 2); // TESTING AFMOTOR
 
 static void forwardstep1() {
   pablo_motor1.onestep(FORWARD, SINGLE);
@@ -75,6 +79,9 @@ void Pablo::setupMotors(){
     stepper_r -> setMinPulseWidth(minmumPulseWidth);
     stepper_l -> setMinPulseWidth(minmumPulseWidth);
 
+    // make sure the direction is inverted
+    motorDirection = -1;
+
   } else {
       // Declare the AccelStepper motors (which 'wrap' the AFMotor lib motors)
     stepper_r = new PabloAccelStepper( forwardstep1, backwardstep1); 
@@ -108,14 +115,14 @@ void Pablo::captureSettings() {
   stepper_r -> setAcceleration(accelerationRight);
   // calculate how many steps to go (here we divide by 2 because the bounce goes fowards and backwards)
   steps = (setting_right_wheel_distance * stepsPerRev / (wheelDiam * 3.1416) / 2);
-  stepper_r -> moveTo(steps);
+  stepper_r -> moveTo(steps * motorDirection);
   // message(String(steps) );
 
   // LEFT WHEEL
   stepper_l -> setMaxSpeed(setting_left_wheel_speed * 10); // max 400
   stepper_l -> setAcceleration(accelerationLeft);
   steps = (setting_left_wheel_distance * stepsPerRev / (wheelDiam * 3.1416) / 2);
-  stepper_l -> moveTo(steps);
+  stepper_l -> moveTo(steps * motorDirection);
 }
 
 float speed_l;
@@ -201,8 +208,8 @@ void Pablo::set_wheels_mm(float distance_l, float distance_r,  float top_speed) 
   stepper_r -> setMaxSpeed(speed_r);
 
   // translate distance into steps
-  stepper_l -> moveTo(distanceToSteps(distance_l));
-  stepper_r -> moveTo(distanceToSteps(distance_r));
+  stepper_l -> moveTo(distanceToSteps(distance_l) * motorDirection);
+  stepper_r -> moveTo(distanceToSteps(distance_r) * motorDirection);
 
 }
 

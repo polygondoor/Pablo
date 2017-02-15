@@ -7,6 +7,8 @@
 
 // Include libraries for drawing to the OLED screen
 #include <U8g2lib.h>
+
+// The old Motor shield
 #include <AFMotor.h>
 
 #include <SPI.h>
