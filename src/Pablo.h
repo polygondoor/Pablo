@@ -16,6 +16,7 @@
 
 #define PABLO_V1 1
 #define PABLO_V2 2
+#define PABLO_V3 3
 
 #define MOVEMENT_STILL 		0
 #define MOVEMENT_FORWARDS 	1
@@ -45,6 +46,8 @@ class Pablo
     void message(String text);
     void message(int number);
     void messageLarge(String);
+    void enablePowerToMotors();
+  	void disablePowerToMotors();
 
     /* OBJECTS */
   	// Stepper motors 
@@ -59,8 +62,6 @@ class Pablo
   	void setupButtons();
   	void setupDisplay();
   	void setupMotors();
-  	void enablePowerToMotors();
-  	void disablePowerToMotors();
 
   	void report();
   	void displayStartMessage();

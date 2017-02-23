@@ -9,7 +9,9 @@
 
 // steps per revolution
 // int stepsPerRev = 2048;
-int stepsPerRev = 2048;
+int stepsPerRev = 1;
+int stepsPerRevCheapStepper = 2048;
+int stepsPerRevBiPolar = 200;
 
 // used to flip direction of motors so that all bots move forwards
 // irresective of their design
@@ -17,6 +19,7 @@ int motorDirection = 1;
 
 // wheel diameter of robot
 float wheelDiam = 79;
+float wheelDiamV3 = 56.3;
 
 // Default configurations for stepper motor control
 float maxSpeedLeft = 400;
@@ -26,9 +29,12 @@ float maxSpeedRight = 400;
 float accelerationRight = 100;
 
 // float 
-float topSpeed = 500; // around 500 is good for sudden starts and stop
+float topSpeed = 100; // around 500 is good for sudden starts and stop
 float noVisibleAcceleration = 100000; // use 100000 for no stop
-float aLittleAcceleration = 800 ;
+float aLittleAcceleration = 10000 ; // default is 300
+
+// For Artbot V3 .... speed of 100 and acceleration of 10,000 is a good start.
+// Speed might increase and acceleration decrease.
 
 // float
 float minmumPulseWidth = 15;
@@ -71,18 +77,43 @@ void Pablo::setupMotors(){
   pinMode(12, OUTPUT);
   pinMode(13, OUTPUT);
 
-  if (_pabloVersion == PABLO_V2 ) {
-    // Initialise Stepper motors
-    stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
-    stepper_l = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
+    if (_pabloVersion == PABLO_V3 ) {
+      // Steps per rev
+      stepsPerRev = stepsPerRevBiPolar;
+      stepsPerRev = 400;
 
-    stepper_r -> setMinPulseWidth(minmumPulseWidth);
-    stepper_l -> setMinPulseWidth(minmumPulseWidth);
+      // wheelDiameter
+      wheelDiam = wheelDiamV3;
 
-    // make sure the direction is inverted
-    motorDirection = -1;
+      // Initialise Stepper motors
+      stepper_r = new PabloAccelStepper(PabloAccelStepper::HALF4WIRE, 7, 12, 8, 13);
+      stepper_l = new PabloAccelStepper(PabloAccelStepper::HALF4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
+
+      stepper_r -> setMinPulseWidth(minmumPulseWidth);
+      stepper_l -> setMinPulseWidth(minmumPulseWidth);
+
+    } else if (_pabloVersion == PABLO_V2 ) {
+
+      stepsPerRev = stepsPerRevCheapStepper;
+      // wheelDiameter
+      wheelDiam = wheelDiam;
+
+      // Initialise Stepper motors
+      stepper_r = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 7, 12, 8, 13);
+      stepper_l = new PabloAccelStepper(PabloAccelStepper::FULL4WIRE, 5, 3, 4, 2); // 7, 8, 12, 13
+
+      stepper_r -> setMinPulseWidth(minmumPulseWidth);
+      stepper_l -> setMinPulseWidth(minmumPulseWidth);
+
+      // make sure the direction is inverted
+      motorDirection = -1;
 
   } else {
+
+    stepsPerRev = stepsPerRevCheapStepper;
+    // wheelDiameter
+    wheelDiam = wheelDiam;
+
       // Declare the AccelStepper motors (which 'wrap' the AFMotor lib motors)
     stepper_r = new PabloAccelStepper( forwardstep1, backwardstep1); 
     stepper_l = new PabloAccelStepper( forwardstep2, backwardstep2); 
