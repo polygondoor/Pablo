@@ -29,12 +29,9 @@ float maxSpeedRight = 400;
 float accelerationRight = 100;
 
 // float 
-float topSpeed = 100; // around 500 is good for sudden starts and stop
+float topSpeed = 500; // around 500 is good for sudden starts and stop
 float noVisibleAcceleration = 100000; // use 100000 for no stop
-float aLittleAcceleration = 10000 ; // default is 300
-
-// For Artbot V3 .... speed of 100 and acceleration of 10,000 is a good start.
-// Speed might increase and acceleration decrease.
+float aLittleAcceleration = 300 ; // default is 300
 
 // float
 float minmumPulseWidth = 15;
@@ -81,6 +78,10 @@ void Pablo::setupMotors(){
       // Steps per rev
       stepsPerRev = stepsPerRevBiPolar;
       stepsPerRev = 400;
+      // For Artbot V3 .... speed of 100 and acceleration of 10,000 is a good start.
+      // Speed might increase and acceleration decrease.
+      topSpeed = 100;
+      aLittleAcceleration = 10000;
 
       // wheelDiameter
       wheelDiam = wheelDiamV3;
