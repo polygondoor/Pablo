@@ -39,6 +39,9 @@ class Pablo
     void set_wheels_mm(float distance_l, float distance_r);
     bool wheels_still_turning();
 
+    // Default Drawing Mode control
+    void drawPattern(float leftSpeed, float leftDistance, float rightSpeed, float rightDistance);
+
     // UI control
     bool waitForStartButton();
     void readModeButton();
@@ -106,6 +109,9 @@ class Pablo
 		{45, 2, 15, 40},
 		{1534, 9, 32, 40}
 	};
+
+	// a variable that simulates pushing a hardware button
+	int virtualStartButtonState = 0; // off by default
 
 	// These are settings captured by the UI settings
 	long setting_right_wheel_distance = 93;	// in mm

@@ -49,7 +49,8 @@ void Pablo::default_mode(){
     }
 
     // Push to start
-    if (digitalRead(buttonStart) == LOW) {
+    if ( (digitalRead(buttonStart) == LOW) || (virtualStartButtonState == 1) ) {
+      virtualStartButtonState = 0; // turn virtual button off
       isDrawing = true;
 
       // engage the motors

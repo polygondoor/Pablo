@@ -161,6 +161,23 @@ float speed_l;
 float speed_r;
 
 /*
+ * Allows configuring a pattern from code
+ */
+void Pablo::drawPattern(float leftSpeed, float leftDistance, float rightSpeed, float rightDistance){
+
+  setting_left_wheel_speed = leftSpeed;
+  setting_left_wheel_distance = leftDistance;
+
+  setting_right_wheel_speed = rightSpeed;
+  setting_right_wheel_distance = rightDistance;
+
+  // push the 'virtual' start button
+  virtualStartButtonState = 1;
+  
+}
+
+
+/*
  * Allows programing the Artbot by defining how far each wheel will move
  * Both wheels are moved that distance within the same time frame
  */
