@@ -80,11 +80,11 @@ void Pablo::setupMotors(){
       stepsPerRev = 400;
       // For Artbot V3 .... speed of 100 and acceleration of 10,000 is a good start.
       // Speed might increase and acceleration decrease.
-      topSpeed = 100;
-      aLittleAcceleration = 10000;
+      topSpeed = 300;
+      aLittleAcceleration = 1200;
 
       // wheelDiameter
-      wheelDiam = wheelDiamV3;
+      wheelDiam = 40.5;
 
       // Initialise Stepper motors
       stepper_r = new PabloAccelStepper(PabloAccelStepper::HALF4WIRE, 7, 12, 8, 13);
